@@ -1,0 +1,73 @@
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/adc/mcux-lpadc.h>
+#include <nxp/mcx/MCXA156VLL-pinctrl.h>
+
+
+/ {
+	zephyr,user {
+		/* adjust channel number according to pinmux in board.dts */
+		io-channels = <&lpadc0 6>;
+	};
+};
+
+&lpadc0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	pinctrl-0 = <&pinmux_lpadc0_custom>;
+
+	// needs to match NXP channel number so ADC0_A6_P2_16 -> channel 6, irrespective of ADC0 or ADC1
+	channel@6 {
+		reg = <6>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH6A>;
+	};
+};
+
+// Something is broken here, as soon as lpadc1 is enabled it causes a crash
+// &lpadc1 {
+// 	status = "okay";
+// 	pinctrl-0 = <&pinmux_lpadc1>;
+// 	pinctrl-names = "default";
+	
+// 	channel@8 {
+// 		reg = <8>;
+// 		zephyr,gain = "ADC_GAIN_1";
+// 		zephyr,reference = "ADC_REF_EXTERNAL0";
+// 		zephyr,vref-mv = <3300>;
+// 		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+// 		zephyr,resolution = <16>;
+// 		zephyr,input-positive = <MCUX_LPADC_CH8B>;
+// 	};
+// };
+
+&pinctrl {
+
+	// distinct name from the board default pinmux group
+	pinmux_lpadc0_custom: pinmux_lpadc0_custom {
+		group0 {
+			pinmux = <ADC0_A1_P2_1>,
+					<ADC0_A6_P2_16>;
+			slew-rate = "fast";
+			drive-strength = "low";
+		};
+	};
+
+	pinmux_lpadc1: pinmux_lpadc1 {
+		group0 {
+			pinmux = <ADC1_A8_P1_10>,
+					<ADC1_A1_P2_5>;
+			slew-rate = "fast";
+			drive-strength = "low";
+		};
+	};
+};
