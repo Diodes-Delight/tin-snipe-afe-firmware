@@ -13,6 +13,24 @@
 	zephyr,user {
 		/* adjust channel number according to pinmux in board.dts */
 		io-channels = <&lpadc0 6>;
+		relay1-reset-gpios = <&gpio2 16 GPIO_ACTIVE_HIGH>;
+		relay1-set-gpios = <&gpio3 13 GPIO_ACTIVE_HIGH>;
+		relay2-reset-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>;
+		relay2-set-gpios = <&gpio3 17 GPIO_ACTIVE_HIGH>;
+		relay3-reset-gpios = <&gpio3 15 GPIO_ACTIVE_HIGH>;
+		relay3-set-gpios = <&gpio2 1 GPIO_ACTIVE_HIGH>;
+		en-pos-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+		en-neg-gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
+		en-ldo-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+		a10x-inh-gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
+		att-s1-gpios = <&gpio2 4 GPIO_ACTIVE_HIGH>;
+		att-s2-gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
+		gs-a-gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
+		gs-b-gpios = <&gpio2 3 GPIO_ACTIVE_HIGH>;
+		gs-inh-gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+		is-a-gpios = <&gpio2 17 GPIO_ACTIVE_HIGH>;
+		is-b-gpios = <&gpio4 6 GPIO_ACTIVE_HIGH>;
+		is-inh-gpios = <&gpio3 16 GPIO_ACTIVE_HIGH>;
 	};
 };
 
