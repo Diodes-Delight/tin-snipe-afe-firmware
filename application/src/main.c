@@ -83,6 +83,20 @@ int main(void)
 	gpio_pin_configure_dt(&relay3_reset, GPIO_OUTPUT_INACTIVE);
 	gpio_pin_configure_dt(&relay3_set, GPIO_OUTPUT_INACTIVE);
 
+	// analog switches default states
+	gpio_pin_configure_dt(&a10x_inh, GPIO_OUTPUT_INACTIVE);
+	gpio_pin_configure_dt(&att_s1, GPIO_OUTPUT_INACTIVE); // s1 and s1 = 0 for no attenuation, 1,1 for 10x attenuation
+	gpio_pin_configure_dt(&att_s2, GPIO_OUTPUT_INACTIVE);
+
+	gpio_pin_configure_dt(&gs_inh, GPIO_OUTPUT_INACTIVE);
+	gpio_pin_configure_dt(&gs_a, GPIO_OUTPUT_INACTIVE); // 0, 0 for gain 1
+	gpio_pin_configure_dt(&gs_b, GPIO_OUTPUT_INACTIVE);
+
+	// voltage regulators have weak pull-ups, on by default
+	gpio_pin_configure_dt(&en_pos, GPIO_OUTPUT_ACTIVE);
+	gpio_pin_configure_dt(&en_neg, GPIO_OUTPUT_ACTIVE);
+	gpio_pin_configure_dt(&en_ldo, GPIO_OUTPUT_ACTIVE);
+
 	while (1) {
 
 		printk("ADC reading[%u]:\n", count++);
